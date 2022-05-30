@@ -148,6 +148,7 @@ function FlintEditor(container, imagesPath, config) {
 		var resultsMode = "Visual";
 
 		this.setResults = function(text) {
+
 			results = text;
 			if ($.isXMLDoc(results)) {
 				if (!window.XMLSerializer) {
@@ -1202,29 +1203,29 @@ function FlintEditor(container, imagesPath, config) {
 						var uri;
 						var prefix;
 						var i;
-						if (activeDataItem.properties != null) {
-							uri = config.namespaces[j].uri;
-							prefix = config.namespaces[j].prefix;
-							for (i = 0; i < activeDataItem.properties.results.bindings.length; i++) {
-								if (activeDataItem.properties.results.bindings[i].p.value
-										.indexOf(uri) === 0) {
+						// if (activeDataItem.properties != null) {
+							// uri = config.namespaces[j].uri;
+							// prefix = config.namespaces[j].prefix;
+							// for (i = 0; i < activeDataItem.properties.results.bindings.length; i++) {
+								// if (activeDataItem.properties.results.bindings[i].p.value
+										// .indexOf(uri) === 0) {
 									prefixes.push(config.namespaces[j]);
-									found = true;
-									break;
-								}
-							}
-						}
-						if (!found && activeDataItem.classes != null) {
-							uri = config.namespaces[j].uri;
-							prefix = config.namespaces[j].prefix;
-							for (i = 0; i < activeDataItem.classes.results.bindings.length; i++) {
-								if (activeDataItem.classes.results.bindings[i].o.value
-										.indexOf(uri) === 0) {
-									prefixes.push(config.namespaces[j]);
-									break;
-								}
-							}
-						}
+									// found = true;
+									// break;
+								// }
+							// }
+						// }
+						// if (!found && activeDataItem.classes != null) {
+						// 	uri = config.namespaces[j].uri;
+						// 	prefix = config.namespaces[j].prefix;
+						// 	for (i = 0; i < activeDataItem.classes.results.bindings.length; i++) {
+						// 		if (activeDataItem.classes.results.bindings[i].o.value
+						// 				.indexOf(uri) === 0) {
+						// 			prefixes.push(config.namespaces[j]);
+						// 			break;
+						// 		}
+						// 	}
+						// }
 					}
 					activeDataItem.prefixes = prefixes;
 				}
@@ -1587,7 +1588,7 @@ function FlintEditor(container, imagesPath, config) {
 					activeDataItem = datasetItem;
 					this.showActiveTab();
 					var paramsData = {};
-					paramsData[config.defaultEndpointParameters.queryParameters.query] = "SELECT DISTINCT ?p WHERE {?s ?p ?o} ORDER BY ?p LIMIT 1000";
+					paramsData[config.defaultEndpointParameters.queryParameters.query] = " SELECT DISTINCT  ?p FROM <http://fr.dbpedia.org/graph/metadata> WHERE {?s  void:propertyPartition [  void:property ?p ;]. }  ORDER BY ASC(?p)"; 
 					$
 							.ajax({
 								url : datasetItem.uri,
@@ -1611,10 +1612,10 @@ function FlintEditor(container, imagesPath, config) {
 									if (activeTab === "Prefixes") {
 										displayPrefixes();
 									}
-									if (datasetItem.properties.results.bindings.length == 1000) {
-										window
-												.alert("The maximum number of properties has been reached - 1000");
-									}
+									// if (datasetItem.properties.results.bindings.length == 1000) {
+									// 	window
+									// 			.alert("The maximum number of properties has been reached - 1000");
+									// }
 
 								}
 							});
@@ -1648,7 +1649,7 @@ function FlintEditor(container, imagesPath, config) {
 					activeDataItem = datasetItem;
 					this.showActiveTab();
 					var paramsData = {};
-					paramsData[config.defaultEndpointParameters.queryParameters.query] = "SELECT DISTINCT ?o WHERE {?s a ?o} ORDER BY ?o LIMIT 1000";
+					paramsData[config.defaultEndpointParameters.queryParameters.query] = "SELECT DISTINCT  ?o FROM <http://fr.dbpedia.org/graph/metadata> WHERE {?s  void:classPartition [  void:class ?o ;]. }  ORDER BY ASC(?o)";
 					$
 							.ajax({
 								url : datasetItem.uri,
@@ -1672,10 +1673,10 @@ function FlintEditor(container, imagesPath, config) {
 									if (activeTab === "Prefixes") {
 										displayPrefixes();
 									}
-									if (datasetItem.classes.results.bindings.length == 1000) {
-										window
-												.alert("The maximum number of classes has been reached - 1000");
-									}
+									// if (datasetItem.classes.results.bindings.length == 1000) {
+									// 	window
+									// 			.alert("The maximum number of classes has been reached - 1000");
+									// }
 								}
 							});
 				} else {

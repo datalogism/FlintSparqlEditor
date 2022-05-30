@@ -689,7 +689,7 @@
 }
 
 #flint-results-area {
-	height: 200px;
+	/*height: 200px;*/
 	background: white;
 	padding: 3px;
 	overflow: auto;
