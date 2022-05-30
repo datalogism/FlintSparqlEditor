@@ -175,8 +175,8 @@ $(document)
 						},
 						"endpoints" : [
 							{
-									"name" : "prod-DBpedia Fr",
-									"uri" : "http://prod-dbpedia.inria.fr/sparql",
+									"name" : "DBpedia Fr",
+									"uri" : window.location.origin+"/sparql",
 									"modes" : ["sparql10", "sparql11query"],
 									queries : [
 											{
